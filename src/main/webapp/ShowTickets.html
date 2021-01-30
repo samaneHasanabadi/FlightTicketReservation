@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <!-- Bootstrap CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="CssConfig.css"><title>Show Tickets</title>
+</head>
+<body>
+<div class="m1" >
+    <img src="c.jpg">
+</div>
+<div class="m2">
+    <nav class="navbar navbar-default" style="background-color: #d01e06; color: #f5f2f2;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" style=" color: #f5f2f2;" href="#"><i class="fa fa-plane" style="font-size:24px"></i> Sam AirLine</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a style=" color: #f5f2f2;" href="AirplaneTicketBootStrapHomePage.html">Home</a></li>
+                <li><a style=" color: #f5f2f2;" href="ReserveTicket.html">Reserve Ticket</a></li>
+                <li class="active"><a style=" color: #181717;" href="#">See Tickets</a></li>
+                <li><a style=" color: #f5f2f2;" href="SearchTicket.html">Search Ticket</a></li>
+            </ul>
+        </div>
+    </nav>
+<div class="pl-3" style="width: 70%">
+    <button id ="showTickets2" onclick="showTickets2()" class="btn btn-success">show tickets</button>
+    <button id ="deleteTickets" class="btn btn-danger" data-toggle='modal' data-target='#deleteAllConfirmationModal' style="background-color: #d01e06; border-color: #d01e06">delete all tickets</button>
+    <div class="table-responsive-xl pt-3">
+        <table id= "ticketdata" class="table table-hover pt-5">
+            <thead>
+            <th style="display: none">id</th>
+            <th>Name</th>
+            <th>Family</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Date</th>
+            <th>FlightNumber</th>
+            <th>Price</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modify Ticket</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="modifyForm">
+                    <div class="form-group">
+                        <label for="idNumber1" style="display: none">id</label>
+                        <input type="number" style="display: none" class="form-control" name="id" id="idNumber1">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" name="name" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="family">Family</label>
+                        <input type="text" class="form-control" name="family" id="family">
+                    </div>
+                    <div class="form-group">
+                        <label for="origin">Origin</label>
+                        <input type="text" class="form-control" name="origin" id="origin">
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="text" class="form-control" name="destination" id="destination">
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" class="form-control" name="date" id="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="flightNumber">FlightNumber</label>
+                        <input type="number" class="form-control" name="flightNumber" id="flightNumber">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" name="price" id="price">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveChange" style="background-color: #d01e06; border-color: #d01e06">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmation">Delete Ticket</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this ticket?
+                <form id="delForm" style="display: none">
+                    <div class="form-group" style="display: none">
+                        <label for="idNumber1" style="display: none">id</label>
+                        <input type="number" style="display: none" class="form-control" name="id" id="idNumber2">
+                    </div>
+                    <div class="form-group" style="display: none">
+                        <label for="rowID" style="display: none">rowID</label>
+                        <input type="number" style="display: none" class="form-control" name="id" id="rowID">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="deleteTicket" style="background-color: #d01e06; border-color: #d01e06">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteAllConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Ticket</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete all tickets?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Deny</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmDeleteTickets" style="background-color: #d01e06; border-color: #d01e06">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function showTickets2() {
+        $("#showTickets2").click(function () {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/Welcome/api/tickets",
+                success: function (data) {
+                    $(function() {
+                        $.each(data, function(i, f) {
+                            var dateFormat = JSON.stringify(f.date);
+                            var res = dateFormat.split("-");
+                            var day = (res[2].split("\""))[0];
+                            var month = res[1];
+                            var year = (res[0].split("\""))[1];
+                            var newDate = month + "/" + day + "/" + year;
+                            var tblRow = "<tr id=\"tr"+f.id+"\">"+  "<td class=\"idNumber1\" style=\"display: none\">" + f.id + "</td>"  +
+                                "<td class='name' >" + f.name + "</td>" +
+                                "<td class=\"family\" >" + f.family + "</td>" + "<td class=\"origin\">" + f.origin + "</td>" +
+                                "<td class=\"destination\" >" + f.destination + "</td>" + "<td class=\"date\">" + newDate + "</td>" +
+                                "<td class=\"flightNumber\" >" + f.flightNumber + "</td>" + "<td class=\"price\">" + f.price + "</td>" +
+                                "<td><button id=\""+f.id+"\" type='button' class='btn btn-warning btn-sm pr-1' class='edit3' onclick='editModal(id)' data-toggle='modal' data-target='#edit'>Edit" +
+                                "</button>\n<button id=\""+i+"\" type=\"button\" class=\"btn btn-danger btn-sm pr-1 delete\" style=\"background-color: #d01e06; border-color: #d01e06\" data-toggle='modal' onclick=\"delModal("+f.id+", id)\" data-target='#deleteConfirmationModal'>" +
+                                "Delete</button></td>"+"</tr>";
+                            $(tblRow).appendTo("#ticketdata tbody");
+                        });
+                    });
+                }
+            });
+        });
+    };
+    $("#saveChange").click(function(){
+            var $form = $("#modifyForm");
+            var formData = getFormData($form);
+            function getFormData($form){
+                var unindexed_array = $form.serializeArray();
+                var indexed_array = {};
+                var $row = document.getElementById($("#idNumber1").val()).closest("tr"), tds = $row.cells;
+                $.map(unindexed_array, function(n, i){
+                    indexed_array[n['name']] = n['value'];
+                    tds[i].innerHTML = n['value'];
+                    if(n['name'] === "date"){
+                        var array = n['value'].split("-");
+                        var year = array[0];
+                        var month = array[1];
+                        var day = array[2];
+                        var newDate = month + "/" + day + "/" + year;
+                        tds[i].innerHTML = newDate;
+                    }
+                });
+
+                return indexed_array;
+            }
+            var ticketId = parseInt($("#idNumber1").val());
+            $.ajax({
+                url: 'http://localhost:8080/Welcome/api/tickets/'+ticketId,
+                type : "PUT",
+                dataType : 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success : function(result) {
+                    //$("#p1").append(result);
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            });
+    });
+    function delModal($id, $rowId){
+        document.getElementById("idNumber2").value = $id;
+        document.getElementById("rowID").value = $rowId;
+    }
+    function editModal($id) {
+        var $row = document.getElementById($id).closest("tr"), tds = $row.cells;
+        for (var i = 0; i < tds.length - 1; i++) {
+            var input_name = tds[i].className;
+            var input_val = tds[i].innerHTML;
+            if (input_name === "date") {
+                var array = input_val.split("/");
+                var month = array[0];
+                var day = array[1];
+                var year = array[2];
+                input_val = year + "-" + month + "-" + day;
+            }
+            document.getElementById(input_name).value = input_val;
+        }
+    }
+        $("#deleteTicket").click(function(){
+            var ticketId = parseInt($("#idNumber2").val());
+            var rowId = "#tr"+ticketId;
+            $.ajax({
+                url: 'http://localhost:8080/Welcome/api/tickets/'+ticketId,
+                type : "DELETE",
+                success : function(data) {
+                    var row =$(rowId);
+                    row.remove();
+                },
+                error: function(xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            });
+        });
+    $("#confirmDeleteTickets").click(function(){
+        $.ajax({
+            url: 'http://localhost:8080/Welcome/api/tickets',
+            type : "DELETE",
+            success : function(data) {
+                $("#ticketdata tr:gt(0)").remove();
+                //$("#p3").append(data);
+            },
+            error: function(xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.m1{
+    height: 20%;
+    width: 100%;
+}
+.m2{
+    height: 80%;
+    width: 100%;
+}
+.m1 img {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.btnOrang{
+    background-color: #d01e06;
+    border-color: #d01e06;
+}
